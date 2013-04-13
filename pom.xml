@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.alexkasko.maven</groupId>
     <artifactId>jni-headers-maven-plugin</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Maven plugin for generating JNI headers</name>
 

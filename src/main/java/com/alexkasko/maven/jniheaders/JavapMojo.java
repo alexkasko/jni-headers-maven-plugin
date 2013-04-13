@@ -141,17 +141,17 @@ public class JavapMojo extends AbstractMojo {
                 if(nameMatcher.matches()) {
                     String name = nameMatcher.group(1);
                     upper = LOWER_CAMEL.to(UPPER_UNDERSCORE, name);
-                    writer.append("// ").append(line).append("\n");
+                    writer.append("/* ").append(line).append(" */").append("\n");
                     writer.append("#define ").append(upper).append("_NAME").append(" ")
-                            .append(name).append("\n");
+                            .append("\"").append(name).append("\"").append("\n");
                 }
                 Matcher sigMatcher = signatureRegex.matcher(line);
                 if(sigMatcher.matches()) {
                     if(null == upper) throw new IOException("Cannot parse signature - no name parsed, line: [" + line + "]");
                     String sig = sigMatcher.group(1);
-                    writer.append("// ").append(line).append("\n");
+                    writer.append("/* ").append(line).append(" */").append("\n");
                     writer.append("#define ").append(upper).append("_SIGNATURE").append(" ")
-                            .append(sig).append("\n");
+                            .append("\"").append(sig).append("\"").append("\n");
                     writer.append("\n");
                     upper = null;
                 }

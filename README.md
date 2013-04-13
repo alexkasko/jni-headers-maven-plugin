@@ -80,15 +80,15 @@ Usage example
     #ifndef _Callbacks_org_foo_MyClass
     #define _Callbacks_org_foo_MyClass
 
-    // public abstract void callbackExit(java.lang.String);
-    #define CALLBACK_EXIT_NAME callbackExit
-    //   Signature: (Ljava/lang/String;)V
-    #define CALLBACK_EXIT_SIGNATURE (Ljava/lang/String;)V
+    /* public abstract void callbackExit(java.lang.String); */
+    #define CALLBACK_EXIT_NAME "callbackExit"
+    /*   Signature: (Ljava/lang/String;)V */
+    #define CALLBACK_EXIT_SIGNATURE "(Ljava/lang/String;)V"
 
-    // public abstract int callbackAudioInit(int, int, int, int);
-    #define CALLBACK_AUDIO_INIT_NAME callbackAudioInit
-    //   Signature: (IIII)I
-    #define CALLBACK_AUDIO_INIT_SIGNATURE (IIII)I
+    /* public abstract int callbackAudioInit(int, int, int, int); */
+    #define CALLBACK_AUDIO_INIT_NAME "callbackAudioInit"
+    /*   Signature: (IIII)I */
+    #define CALLBACK_AUDIO_INIT_SIGNATURE "(IIII)I"
 
     #endif //_Callbacks_org_foo_MyClass
 
@@ -99,6 +99,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**1.0.1** (2013-04-13)
+
+ * javap definitions quotation
 
 **1.0** (2013-04-11)
 
