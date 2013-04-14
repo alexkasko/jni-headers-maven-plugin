@@ -68,6 +68,13 @@ public class JavapMojo extends AbstractMojo {
      */
     private File javapOutputFilePath;
     /**
+     * Project {@code src/main} directory
+     *
+     * @parameter expression="${project.build.sourceDirectory}"
+     * @readonly
+     */
+    private File srcMainDirectory;
+    /**
      * Project output directory
      *
      * @parameter expression="${project.build.outputDirectory}"
@@ -88,6 +95,12 @@ public class JavapMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
+            File srcFile = new File(srcMainDirectory, javapClass.replace(".","/") + ".java");
+            if(srcFile.exists() && srcFile.isFile() && javapOutputFilePath.exists() && javapOutputFilePath.isFile() &&
+                    srcFile.lastModified() <= javapOutputFilePath.lastModified()) {
+                getLog().info("Source file: [" + srcFile.getAbsolutePath() + "] is not modified, skipping 'javap' execution");
+                return;
+            }
             File javah = null != javapPath ? javapPath : new File(Utils.jdkHome(), "bin/javap");
             if (!(javah.exists() && javah.isFile())) throw new IOException("Cannot find javap path, check 'javapPath' property");
             List<String> command = new ArrayList<String>();

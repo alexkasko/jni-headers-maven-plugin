@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.IOUtils.copy;
 
 /**
@@ -49,9 +50,16 @@ public class JavahMojo extends AbstractMojo {
      * Path to output header file
      *
      * @required
-     * @parameter expression="${javahOutputFile}"
+     * @parameter expression="${javahOutputFilePath}"
      */
     private File javahOutputFilePath;
+    /**
+     * Project {@code src/main} directory
+     *
+     * @parameter expression="${project.build.sourceDirectory}"
+     * @readonly
+     */
+    private File srcMainDirectory;
     /**
      * Project output directory
      *
@@ -73,6 +81,13 @@ public class JavahMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
+            File srcFile = new File(srcMainDirectory, javahClass.replace(".","/") + ".java");
+            if(srcFile.exists() && srcFile.isFile() && javahOutputFilePath.exists() && javahOutputFilePath.isFile() &&
+                    srcFile.lastModified() <= javahOutputFilePath.lastModified()) {
+                getLog().info("Source file: [" + srcFile.getAbsolutePath() + "] is not modified, skipping 'javah' execution");
+                return;
+            }
+            long now = currentTimeMillis();
             File javah = null != javahPath ? javahPath : new File(Utils.jdkHome(), "bin/javah");
             if(!(javah.exists() && javah.isFile())) throw new IOException("Cannot find javah path, check 'javahPath' property");
             List<String> command = new ArrayList<String>();
@@ -94,6 +109,9 @@ public class JavahMojo extends AbstractMojo {
                     .start();
             copy(proc.getInputStream(), System.out);
             proc.waitFor();
+            // touch file in case javah skip it's updating
+            if(0 == proc.exitValue() && javahOutputFilePath.exists() && javahOutputFilePath.isFile() &&
+                    javahOutputFilePath.lastModified() < now) javahOutputFilePath.setLastModified(currentTimeMillis());
         } catch (Exception e) {
             throw new MojoFailureException(e.getMessage(), e);
         }
