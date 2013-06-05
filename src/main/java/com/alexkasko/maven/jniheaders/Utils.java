@@ -41,7 +41,7 @@ class Utils {
     }
 
     private static boolean valid(File dir) {
-        if(null != dir && !dir.exists() && dir.isDirectory()) return false;
+        if(null == dir || !dir.exists() || !dir.isDirectory()) return false;
         File javah = new File(dir, "bin/javah");
         File javap = new File(dir, "bin/javap");
         return javah.exists() && javah.isFile() && javap.exists() && javap.isFile();
