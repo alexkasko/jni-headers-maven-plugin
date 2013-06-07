@@ -101,7 +101,7 @@ public class JavapMojo extends AbstractMojo {
                 getLog().info("Source file: [" + srcFile.getAbsolutePath() + "] is not modified, skipping 'javap' execution");
                 return;
             }
-            File javah = null != javapPath ? javapPath : new File(Utils.jdkHome(), "bin/javap");
+            File javah = null != javapPath ? javapPath : new File(Utils.jdkHome(getLog()), "bin/javap");
             if (!(javah.exists() && javah.isFile())) throw new IOException("Cannot find javap path, check 'javapPath' property");
             List<String> command = new ArrayList<String>();
             command.add(javah.getAbsolutePath());

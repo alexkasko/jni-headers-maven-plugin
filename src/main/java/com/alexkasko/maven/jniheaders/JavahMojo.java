@@ -88,7 +88,7 @@ public class JavahMojo extends AbstractMojo {
                 return;
             }
             long now = currentTimeMillis();
-            File javah = null != javahPath ? javahPath : new File(Utils.jdkHome(), "bin/javah");
+            File javah = null != javahPath ? javahPath : new File(Utils.jdkHome(getLog()), "bin/javah");
             if(!(javah.exists() && javah.isFile())) throw new IOException("Cannot find javah path, check 'javahPath' property");
             List<String> command = new ArrayList<String>();
             command.add(javah.getAbsolutePath());
