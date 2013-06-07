@@ -50,6 +50,9 @@ class Utils {
         if(null == dir || !dir.exists() || !dir.isDirectory()) return false;
         File javah = new File(dir, "bin/javah");
         File javap = new File(dir, "bin/javap");
-        return javah.exists() && javah.isFile() && javap.exists() && javap.isFile();
+        if(javah.exists() && javah.isFile() && javap.exists() && javap.isFile()) return true;
+        File javahExe = new File(dir, "bin/javah.exe");
+        File javapExe = new File(dir, "bin/javap.exe");
+        return javahExe.exists() && javahExe.isFile() && javapExe.exists() && javapExe.isFile();
     }
 }
