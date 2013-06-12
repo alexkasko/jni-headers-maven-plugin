@@ -89,7 +89,9 @@ public class JavahMojo extends AbstractMojo {
             }
             long now = currentTimeMillis();
             File javah = null != javahPath ? javahPath : new File(Utils.jdkHome(getLog()), "bin/javah");
-            if(!(javah.exists() && javah.isFile())) throw new IOException("Cannot find javah path, check 'javahPath' property");
+            File javahExe = new File(javah.getPath() + ".exe");
+            if(!(javah.exists() && javah.isFile() || javahExe.exists() && javahExe.isFile())) throw new IOException(
+                    "Cannot find javah path, check 'javahPath' property");
             List<String> command = new ArrayList<String>();
             command.add(javah.getAbsolutePath());
             if(javahVerbose) command.add("-verbose");

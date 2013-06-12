@@ -39,7 +39,7 @@ Usage example
     <plugin>
         <groupId>com.alexkasko.maven</groupId>
         <artifactId>jni-headers-maven-plugin</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <executions>
             <!-- generate header for native methods -->
             <execution>
@@ -99,6 +99,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**1.0.6** (2013-06-12)
+
+ * another fix for windows ([#1](https://github.com/alexkasko/jni-headers-maven-plugin/issues/1))
 
 **1.0.5** (2013-06-08)
 
