@@ -12,6 +12,9 @@ import java.io.IOException;
  * Date: 4/11/13
  */
 class Utils {
+
+    private static String OS = System.getProperty("os.name").toLowerCase();
+
     /**
      * Search fore JDK directory that contains {@code javap} and {@code javah}
      *
@@ -55,4 +58,10 @@ class Utils {
         File javapExe = new File(dir, "bin/javap.exe");
         return javahExe.exists() && javahExe.isFile() && javapExe.exists() && javapExe.isFile();
     }
+
+    public static boolean isWindows() {
+        return (OS.contains("win"));
+    }
+
+
 }

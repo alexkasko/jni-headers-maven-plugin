@@ -19,7 +19,7 @@ import static org.apache.commons.io.IOUtils.copy;
  * Runs {@code javah} utility on provided class and writes generated header to specified location.
  *
  * @goal javah
- *
+ * @requiresDependencyResolution compile
  * @author alexkasko
  * Date: 4/11/13
  */
@@ -100,7 +100,16 @@ public class JavahMojo extends AbstractMojo {
             Set<Artifact> ars = project.getArtifacts();
             if(ars.size() > 0) {
                 command.add("-classpath");
-                for(Artifact ar : ars) command.add(ar.getFile().getAbsolutePath());
+                StringBuilder sb = new StringBuilder();
+                for(Artifact ar : ars){
+                    sb.append(ar.getFile().getAbsolutePath());
+                    if(Utils.isWindows()){
+                        sb.append(";");
+                    }else{
+                        sb.append(":");
+                    }
+                }
+                command.add(sb.toString());
             }
             command.add(javahClass);
             getLog().info(command.toString());
